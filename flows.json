@@ -4199,7 +4199,7 @@
         "name": "",
         "active": true,
         "tosidebar": true,
-        "console": false,
+        "console": true,
         "tostatus": false,
         "complete": "topic",
         "targetType": "msg",
