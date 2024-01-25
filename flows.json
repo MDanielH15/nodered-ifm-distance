@@ -272,7 +272,27 @@
             "afa6f4ca482b7156"
         ],
         "x": 114,
-        "y": 319
+        "y": 319,
+        "w": 872,
+        "h": 82
+    },
+    {
+        "id": "08c902da4f7dcb55",
+        "type": "group",
+        "z": "b1a454d0a1b772ee",
+        "name": "DELETE ALL DATA MANUALLY (CAREFULL)",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "15aadde17c038948",
+            "2aca6185fd12770c",
+            "c794322cc5fa1859"
+        ],
+        "x": 1594,
+        "y": 619,
+        "w": 582,
+        "h": 82
     },
     {
         "id": "f24f472989f566a2",
@@ -604,6 +624,16 @@
         "order": 22,
         "width": 2,
         "height": 1
+    },
+    {
+        "id": "c49fc2234044fae7",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "192.168.88.147",
+        "port": "3306",
+        "db": "db_test",
+        "tz": "",
+        "charset": "UTF8"
     },
     {
         "id": "b7dbe9ea01bb0817",
@@ -3494,8 +3524,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 230,
-        "y": 220,
+        "x": 210,
+        "y": 160,
         "wires": [
             [
                 "22ffc1a5c748e54e",
@@ -3723,7 +3753,7 @@
                 "96a527be90068866",
                 "136a4ace87b7789e",
                 "2462754e278382e7",
-                "846755a489bcbfb3"
+                "58708f48da23a3bc"
             ]
         ]
     },
@@ -4006,8 +4036,8 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 230,
-        "y": 260,
+        "x": 210,
+        "y": 220,
         "wires": [
             [
                 "5e46f9c0fd8052b0",
@@ -4048,19 +4078,155 @@
         "wires": []
     },
     {
-        "id": "846755a489bcbfb3",
+        "id": "397b67202512ef92",
         "type": "debug",
         "z": "b1a454d0a1b772ee",
-        "name": "debug 153",
-        "active": true,
+        "name": "debug 156",
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 660,
+        "x": 2150,
+        "y": 400,
         "wires": []
+    },
+    {
+        "id": "15aadde17c038948",
+        "type": "inject",
+        "z": "b1a454d0a1b772ee",
+        "g": "08c902da4f7dcb55",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1700,
+        "y": 660,
+        "wires": [
+            [
+                "2aca6185fd12770c"
+            ]
+        ]
+    },
+    {
+        "id": "2aca6185fd12770c",
+        "type": "function",
+        "z": "b1a454d0a1b772ee",
+        "g": "08c902da4f7dcb55",
+        "name": "DELETE ALL",
+        "func": "\nmsg.topic = `\n  DELETE FROM DATA;\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1910,
+        "y": 660,
+        "wires": [
+            [
+                "c794322cc5fa1859"
+            ]
+        ]
+    },
+    {
+        "id": "c794322cc5fa1859",
+        "type": "mysql",
+        "z": "b1a454d0a1b772ee",
+        "g": "08c902da4f7dcb55",
+        "mydb": "c49fc2234044fae7",
+        "name": "",
+        "x": 2090,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9a84f84b3d3d3e94",
+        "type": "function",
+        "z": "b1a454d0a1b772ee",
+        "name": "function 113",
+        "func": "\nmsg.topic = \"INSERT INTO `DATA` (`DATA`) VALUES ('\"+ msg.payload + \"');\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1750,
+        "y": 540,
+        "wires": [
+            [
+                "a7bc12962729c39e",
+                "590639b3ef80d4bd"
+            ]
+        ]
+    },
+    {
+        "id": "a7bc12962729c39e",
+        "type": "mysql",
+        "z": "b1a454d0a1b772ee",
+        "mydb": "c49fc2234044fae7",
+        "name": "",
+        "x": 1970,
+        "y": 540,
+        "wires": [
+            [
+                "397b67202512ef92"
+            ]
+        ]
+    },
+    {
+        "id": "590639b3ef80d4bd",
+        "type": "debug",
+        "z": "b1a454d0a1b772ee",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1960,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "58708f48da23a3bc",
+        "type": "function",
+        "z": "b1a454d0a1b772ee",
+        "name": "function 114",
+        "func": "msg.payload = JSON.stringify(msg);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1570,
+        "y": 540,
+        "wires": [
+            [
+                "9a84f84b3d3d3e94"
+            ]
+        ]
     }
 ]
